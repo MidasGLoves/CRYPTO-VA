@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 function AccordionItem({ title, items, highlight }: { title: string, items: string[], highlight?: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -300,21 +300,25 @@ function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
       </section>
 
       <footer>
-        <p>© 2026 Premium Digital Assets. All rights reserved.</p>
+        <p 
+          onClick={onHiddenClick} 
+          style={{ cursor: 'pointer', display: 'inline-block' }}
+        >
+          © 2026 Premium Digital Assets. All rights reserved.
+        </p>
         <p style={{ marginTop: '8px', fontSize: '0.7rem', color: '#444', textTransform: 'uppercase', letterSpacing: '2px' }}>Invest in your skills. Invest in your future.</p>
-        {/* Hidden button */}
-        <div 
-          onClick={onHiddenClick}
-          style={{ position: 'absolute', bottom: 0, right: 0, width: '40px', height: '40px', cursor: 'default' }}
-        />
       </footer>
     </>
   );
 }
 
 export default function App() {
+  useEffect(() => {
+    document.title = "The Premium Freelance Bundle | ₱1 Only";
+  }, []);
+
   const [view, setView] = useState('main');
-  const [submissions, setSubmissions] = useState([]);
+  const [submissions, setSubmissions] = useState<any[]>([]);
 
   const handleHiddenClick = async () => {
     const pwd = prompt('Enter admin password:');
