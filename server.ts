@@ -28,13 +28,19 @@ async function startServer() {
   app.get('/api/download', async (req, res) => {
     try {
       const mediafireUrl = 'https://www.mediafire.com/file/wtd6ukp5738utl6/1_PESO.zip/file';
-      const response = await fetch(mediafireUrl);
+      const response = await fetch(mediafireUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
+      });
       const html = await response.text();
       
       // Extract the direct download link from the Mediafire page
-      const match = html.match(/href="([^"]+)"\s+id="downloadButton"/);
-      if (match && match[1]) {
-        const directLink = match[1];
+      const match1 = html.match(/href="([^"]+)"[^>]*id="downloadButton"/i);
+      const match2 = html.match(/id="downloadButton"[^>]*href="([^"]+)"/i);
+      const directLink = (match1 && match1[1]) || (match2 && match2[1]);
+      
+      if (directLink) {
         
         // Stream the file to the client to completely hide the Mediafire URL
         const fileResponse = await fetch(directLink);

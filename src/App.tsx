@@ -53,8 +53,8 @@ function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
       isValid = false;
     }
 
-    if (!refNo || !/^\d+$/.test(refNo)) {
-      newErrors.ref = 'Please enter a valid number.';
+    if (!refNo || !/^\d{13}$/.test(refNo)) {
+      newErrors.ref = 'Reference number must be exactly 13 digits.';
       isValid = false;
     }
 
@@ -236,7 +236,7 @@ function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
               </div>
               <div className="form-group">
                 <label>Reference Number</label>
-                <input type="text" value={refNo} onChange={e => setRefNo(e.target.value)} placeholder="e.g., 1234567890123" />
+                <input type="text" maxLength={13} value={refNo} onChange={e => setRefNo(e.target.value)} placeholder="e.g., 1234567890123" />
                 {errors.ref && <div className="error-msg" style={{ display: 'block' }}>{errors.ref}</div>}
               </div>
               <button className="btn-custom" disabled={isSubmitting} onClick={submitOrder}>
