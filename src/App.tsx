@@ -269,6 +269,36 @@ function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
         </div>
       </section>
 
+      <section className="instructions-section">
+        <div className="section-header" style={{ marginBottom: '40px' }}>
+          <h2 style={{ fontSize: '2rem' }}>How to Open Your Files</h2>
+          <p>Your premium bundle is delivered as a secure .ZIP archive.</p>
+        </div>
+        <div className="instructions-grid">
+          <div className="instruction-card">
+            <div className="instruction-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h4>Desktop / PC</h4>
+            <p><strong>Windows:</strong> Right-click the downloaded .zip file and select "Extract All...".<br/><br/><strong>Mac:</strong> Simply double-click the .zip file to automatically extract its contents into a new folder.</p>
+          </div>
+          <div className="instruction-card">
+            <div className="instruction-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+            </div>
+            <h4>Mobile / Tablet</h4>
+            <p><strong>iOS (iPhone):</strong> Open the "Files" app, locate the download, and tap it to unzip.<br/><br/><strong>Android:</strong> Open "Files by Google" or your default file manager, tap the .zip file, and select "Extract".</p>
+          </div>
+        </div>
+      </section>
+
       <footer>
         <p>© 2026 Premium Digital Assets. All rights reserved.</p>
         <p style={{ marginTop: '8px', fontSize: '0.7rem', color: '#444', textTransform: 'uppercase', letterSpacing: '2px' }}>Invest in your skills. Invest in your future.</p>

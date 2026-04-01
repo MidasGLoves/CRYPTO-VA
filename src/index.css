@@ -34,9 +34,17 @@ h1, h2, h3 {
 /* HERO SECTION */
 .hero {
   text-align: center;
-  padding: 120px 20px 80px;
-  background: radial-gradient(circle at top center, #14120c 0%, var(--dark-bg) 70%);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding: 140px 20px 100px;
+  background: radial-gradient(circle at 50% 0%, #1a1710 0%, var(--dark-bg) 80%);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.03"/></svg>');
+  pointer-events: none;
 }
 .badge-custom {
   display: inline-block; 
@@ -119,18 +127,27 @@ h1, h2, h3 {
   flex: 1 1 calc(33.333% - 30px);
   min-width: 300px;
   max-width: 350px;
-  background: linear-gradient(145deg, #080808, #0d0d0d); 
-  border: 1px solid var(--border); 
+  background: linear-gradient(180deg, rgba(20,20,20,0.8) 0%, rgba(10,10,10,0.9) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.15); 
   padding: 50px 40px;
-  border-radius: 2px; 
+  border-radius: 6px; 
   text-align: center; 
-  transition: all 0.5s ease;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative; 
+  overflow: hidden;
+}
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+  opacity: 0.5;
 }
 .course-card:hover { 
   transform: translateY(-8px); 
   border-color: rgba(212, 175, 55, 0.4); 
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.08);
 }
 .course-icon { 
   margin-bottom: 25px; 
@@ -341,22 +358,23 @@ h1, h2, h3 {
 .btn-custom {
   width: 100%; 
   padding: 20px; 
-  background: var(--gold); 
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
   color: #000; 
   border: none;
   font-family: 'Montserrat', sans-serif; 
-  font-weight: 500; 
+  font-weight: 600; 
   font-size: 0.9rem; 
   text-transform: uppercase;
   letter-spacing: 3px; 
-  border-radius: 2px; 
+  border-radius: 3px; 
   cursor: pointer; 
   transition: all 0.4s ease; 
   margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
 }
 .btn-custom:hover { 
-  background: var(--gold-light); 
-  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); 
+  background: linear-gradient(135deg, #FFF1C5 0%, var(--gold-light) 100%);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); 
   transform: translateY(-2px); 
 }
 .btn-custom:disabled { 
@@ -382,6 +400,62 @@ h1, h2, h3 {
 }
 .btn-download { background: #fff; color: #000; }
 .btn-download:hover { background: #f0f0f0; box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1); }
+
+/* INSTRUCTIONS SECTION */
+.instructions-section {
+  padding: 80px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  text-align: center;
+}
+.instructions-grid {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+.instruction-card {
+  flex: 1;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  padding: 40px 30px;
+  border-radius: 6px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.instruction-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 15px rgba(212, 175, 55, 0.05);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+.instruction-icon {
+  margin-bottom: 20px;
+}
+.instruction-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--gold);
+}
+.instruction-card h4 {
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+.instruction-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.instruction-card strong {
+  color: var(--gold-light);
+  font-weight: 400;
+}
+@media (max-width: 768px) {
+  .instructions-grid { flex-direction: column; }
+}
 
 footer { 
   text-align: center; 
