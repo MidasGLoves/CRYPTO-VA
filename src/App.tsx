@@ -33,25 +33,13 @@ function AccordionItem({ title, items, highlight }: { title: string, items: stri
 
 function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
   const [formState, setFormState] = useState<'form' | 'waiting' | 'ready'>('form');
-  const [email, setEmail] = useState('');
-  const [gcashName, setGcashName] = useState('');
   const [refNo, setRefNo] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState({ email: '', name: '', ref: '' });
+  const [errors, setErrors] = useState({ ref: '' });
 
   const submitOrder = async () => {
     let isValid = true;
-    const newErrors = { email: '', name: '', ref: '' };
-
-    if (!email || !email.includes('@')) {
-      newErrors.email = 'Please enter a valid email address.';
-      isValid = false;
-    }
-
-    if (!gcashName || gcashName.trim().split(/\s+/).length < 2) {
-      newErrors.name = 'Please enter your full name (First and Last).';
-      isValid = false;
-    }
+    const newErrors = { ref: '' };
 
     if (!refNo || !/^\d{13}$/.test(refNo)) {
       newErrors.ref = 'Reference number must be exactly 13 digits.';
@@ -67,7 +55,7 @@ function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
       await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, gcashName, refNo })
+        body: JSON.stringify({ refNo })
       });
     } catch (e) {
       console.error(e);
@@ -225,16 +213,6 @@ function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
           {formState === 'form' && (
             <div id="state-form">
               <div className="form-group">
-                <label>Email Address</label>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Where should we send updates?" />
-                {errors.email && <div className="error-msg" style={{ display: 'block' }}>{errors.email}</div>}
-              </div>
-              <div className="form-group">
-                <label>GCash Registered Name</label>
-                <input type="text" value={gcashName} onChange={e => setGcashName(e.target.value)} placeholder="Name used for the transfer" />
-                {errors.name && <div className="error-msg" style={{ display: 'block' }}>{errors.name}</div>}
-              </div>
-              <div className="form-group">
                 <label>Reference Number</label>
                 <input type="text" maxLength={13} value={refNo} onChange={e => setRefNo(e.target.value)} placeholder="e.g., 1234567890123" />
                 {errors.ref && <div className="error-msg" style={{ display: 'block' }}>{errors.ref}</div>}
@@ -358,22 +336,18 @@ export default function App() {
               <thead>
                 <tr className="bg-[#111]">
                   <th className="border-b border-gray-800 p-4 font-medium text-gray-400">Time</th>
-                  <th className="border-b border-gray-800 p-4 font-medium text-gray-400">Email</th>
-                  <th className="border-b border-gray-800 p-4 font-medium text-gray-400">GCash Name</th>
                   <th className="border-b border-gray-800 p-4 font-medium text-gray-400">Ref Number</th>
                 </tr>
               </thead>
               <tbody>
                 {submissions.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="p-8 text-center text-gray-500">No submissions yet.</td>
+                    <td colSpan={2} className="p-8 text-center text-gray-500">No submissions yet.</td>
                   </tr>
                 ) : (
                   submissions.map((sub: any, i) => (
                     <tr key={i} className="hover:bg-white/5 transition-colors">
                       <td className="border-b border-gray-800 p-4 text-sm text-gray-300">{new Date(sub.timestamp).toLocaleString()}</td>
-                      <td className="border-b border-gray-800 p-4">{sub.email || '-'}</td>
-                      <td className="border-b border-gray-800 p-4">{sub.gcashName || '-'}</td>
                       <td className="border-b border-gray-800 p-4 font-mono text-sm text-[#D4AF37]">{sub.refNo || '-'}</td>
                     </tr>
                   ))
