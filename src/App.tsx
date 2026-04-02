@@ -213,7 +213,7 @@ function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
           {formState === 'form' && (
             <div id="state-form">
               <div className="form-group">
-                <label>Reference Number</label>
+                <label>GCash Reference Number</label>
                 <input type="text" maxLength={13} value={refNo} onChange={e => setRefNo(e.target.value)} placeholder="e.g., 1234567890123" />
                 {errors.ref && <div className="error-msg" style={{ display: 'block' }}>{errors.ref}</div>}
               </div>
@@ -336,7 +336,7 @@ export default function App() {
               <thead>
                 <tr className="bg-[#111]">
                   <th className="border-b border-gray-800 p-4 font-medium text-gray-400">Time</th>
-                  <th className="border-b border-gray-800 p-4 font-medium text-gray-400">Ref Number</th>
+                  <th className="border-b border-gray-800 p-4 font-medium text-gray-400">GCash Reference Number</th>
                 </tr>
               </thead>
               <tbody>
