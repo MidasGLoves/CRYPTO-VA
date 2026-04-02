@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Ad Generator</title>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      background: #000; 
+      color: #fff; 
+      font-family: 'Montserrat', sans-serif; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      padding: 40px 20px; 
+      margin: 0;
+    }
+    .header-text {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header-text h1 { color: #D4AF37; margin-bottom: 10px; }
+    .header-text p { color: #aaa; }
+
+    /* The actual Ad Canvas */
+    #ad-container {
+      width: 1200px;
+      height: 630px;
+      background: radial-gradient(circle at 70% 30%, #1a1710 0%, #050505 80%);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #D4AF37;
+      box-sizing: border-box;
+      display: flex;
+      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.15);
+    }
+    
+    /* Glowing background effects */
+    .orb-1 { position: absolute; top: -150px; left: -150px; width: 600px; height: 600px; background: rgba(212, 175, 55, 0.15); filter: blur(120px); border-radius: 50%; }
+    .orb-2 { position: absolute; bottom: -200px; right: -100px; width: 700px; height: 700px; background: rgba(255, 255, 255, 0.05); filter: blur(100px); border-radius: 50%; }
+    
+    .content-left {
+      flex: 1.2;
+      padding: 80px 60px 80px 80px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .content-right {
+      flex: 0.8;
+      z-index: 2;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Typography */
+    .eyebrow { 
+      color: #D4AF37; 
+      font-weight: 700; 
+      letter-spacing: 5px; 
+      font-size: 22px; 
+      text-transform: uppercase; 
+      margin-bottom: 25px; 
+    }
+    .headline { 
+      font-size: 72px; 
+      font-weight: 900; 
+      line-height: 1.1; 
+      margin: 0 0 30px 0; 
+      text-transform: uppercase; 
+      letter-spacing: -1px;
+    }
+    .headline span { color: #D4AF37; }
+    .subheadline { 
+      font-size: 26px; 
+      color: #ddd; 
+      line-height: 1.5; 
+      margin-bottom: 50px; 
+      font-weight: 400;
+    }
+    
+    /* Price Badge */
+    .price-badge {
+      background: linear-gradient(135deg, #D4AF37 0%, #FFF1C5 50%, #D4AF37 100%);
+      color: #000;
+      padding: 20px 45px;
+      border-radius: 12px;
+      font-size: 50px;
+      font-weight: 900;
+      display: inline-block;
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+      transform: rotate(-3deg);
+      border: 2px solid #fff;
+    }
+
+    /* PDF Mockups */
+    .pdf-mockup {
+      background: linear-gradient(180deg, #151515 0%, #000 100%);
+      border: 2px solid #D4AF37;
+      width: 300px;
+      height: 420px;
+      position: absolute;
+      border-radius: 12px;
+      box-shadow: -20px 30px 60px rgba(0,0,0,0.9), inset 0 2px 10px rgba(255,255,255,0.1);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .pdf-1 { 
+      transform: rotate(-12deg) translateX(-120px) translateY(20px); 
+      z-index: 1; 
+    }
+    .pdf-2 { 
+      transform: rotate(8deg) translateX(80px) translateY(-20px); 
+      z-index: 2; 
+      border-color: #fff;
+      background: linear-gradient(180deg, #222 0%, #050505 100%);
+    }
+    
+    .pdf-icon { width: 80px; height: 80px; margin-bottom: 25px; margin-top: 30px; }
+    .pdf-title { font-size: 28px; font-weight: 900; color: #D4AF37; margin-bottom: 15px; text-transform: uppercase; line-height: 1.2; }
+    .pdf-sub { font-size: 16px; color: #aaa; line-height: 1.4; }
+
+    /* Download Button */
+    .download-btn {
+      margin-top: 50px;
+      padding: 20px 50px;
+      font-size: 22px;
+      background: #D4AF37;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+    }
+    .download-btn:hover { 
+      background: #FFF1C5; 
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="header-text">
+    <h1>Your Custom Ad Generator</h1>
+    <p>AI image generators usually misspell words. This HTML-based generator creates a perfect, high-resolution ad with flawless text.</p>
+  </div>
+  
+  <!-- This is the exact 1200x630 ad that will be exported -->
+  <div id="ad-container">
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
+    
+    <div class="content-left">
+      <div class="eyebrow">Stop Overpaying For Courses</div>
+      <h1 class="headline">The Ultimate<br/><span>Crypto & VA</span><br/>PDF Bundle</h1>
+      <p class="subheadline">Get 30+ Premium Trading Cheat Sheets & The Complete Virtual Assistant Blueprint instantly.</p>
+      <div>
+        <div class="price-badge">ONLY ₱1</div>
+      </div>
+    </div>
+    
+    <div class="content-right">
+      <div class="pdf-mockup pdf-1">
+        <svg class="pdf-icon" fill="none" stroke="#D4AF37" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        <div class="pdf-title">Crypto<br/>Mastery</div>
+        <div class="pdf-sub">24 Chart Patterns & Technical Analysis Guides</div>
+      </div>
+      <div class="pdf-mockup pdf-2">
+        <svg class="pdf-icon" fill="none" stroke="#fff" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        <div class="pdf-title" style="color: #fff;">VA<br/>Blueprint</div>
+        <div class="pdf-sub">Step-by-Step Remote Work & Agency Scaling Guide</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="download-btn" onclick="downloadAd()">⬇️ Download Ad Image</button>
+
+  <script>
+    function downloadAd() {
+      const btn = document.querySelector('.download-btn');
+      btn.innerText = "Generating Image...";
+      
+      const container = document.getElementById('ad-container');
+      
+      // Use html2canvas to take a screenshot of the div
+      html2canvas(container, { 
+        scale: 2, // High resolution
+        backgroundColor: "#000",
+        logging: false
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = '1peso-bundle-ad.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        
+        btn.innerText = "⬇️ Download Ad Image";
+      }).catch(err => {
+        alert("Error generating image. Please take a screenshot manually.");
+        btn.innerText = "⬇️ Download Ad Image";
+      });
+    }
+  </script>
+</body>
+</html>
