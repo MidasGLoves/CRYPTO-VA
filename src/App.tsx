@@ -76,8 +76,8 @@ function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
     <>
       <header className="hero">
         <div className="badge-custom">The Executive Collection</div>
-        <h1>Master Advanced Trading & Virtual Assistance.<br/><span>For Less Than a Cup of Coffee.</span></h1>
-        <p>Equip yourself with the exact high-income skills businesses and markets are actively paying for. Download the complete premium bundle instantly.</p>
+        <h1>Master Advanced Trading & Virtual Assistance.<br/><span>The Ultimate Premium PDF Bundle.</span></h1>
+        <p>Equip yourself with the exact high-income skills businesses and markets are actively paying for. Download the complete premium PDF bundle instantly.</p>
         <div className="price-tag">₱1</div>
         <div className="price-subtext">One-Time Investment • Lifetime Access</div>
         <button className="btn-custom" style={{ maxWidth: '320px', margin: '0 auto' }} onClick={() => document.getElementById('order')?.scrollIntoView()}>Secure Your Copy</button>
@@ -119,8 +119,8 @@ function MainContent({ onHiddenClick }: { onHiddenClick: () => void }) {
 
       <section className="curriculum-section">
         <div className="section-header">
-          <h2>Inside The Archive</h2>
-          <p>Interactively explore the exact files, documents, and video modules included in your download.</p>
+          <h2>Inside The PDF Archive</h2>
+          <p>Interactively explore the exact PDF guides, cheat sheets, and digital documents included in your download.</p>
         </div>
 
         <div className="accordion-container">
